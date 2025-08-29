@@ -1,15 +1,17 @@
-import SendPasswordVerificationEmail from "@/app/actions/user";
-import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
-export default function Page() {
+export default async function DashboardPage() {
+	const session = await authClient.getSession();
+
+	if (!session) {
+		redirect("/signin");
+	}
+
 	return (
-		<form
-			action={async () => {
-				"use server";
-				SendPasswordVerificationEmail({ email: "aamirmazad@gmail.com" });
-			}}
-		>
-			<Button type="submit">Click Me!</Button>
-		</form>
+		<div>
+			<h1>Welcome, {session.user.name} 👋</h1>
+			<p>Your email: {session.user.email}</p>
+		</div>
 	);
 }

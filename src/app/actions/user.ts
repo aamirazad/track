@@ -7,7 +7,7 @@ interface VerificationEmailProps {
 	callbackURL?: string;
 }
 
-export default async function SendPasswordVerificationEmail({
+export async function SendPasswordVerificationEmail({
 	email,
 	callbackURL,
 }: VerificationEmailProps) {
