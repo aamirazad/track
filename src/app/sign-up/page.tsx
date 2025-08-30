@@ -42,8 +42,8 @@ export default function SignUp() {
 	};
 
 	return (
-		<div className="flex min-h-screen items-center justify-center">
-			<Card className="z-50 w-full max-w-md rounded-md rounded-t-none">
+		<div className="flex flex-1 items-center justify-center">
+			<Card className="z-50 w-full max-w-md rounded-md">
 				<CardHeader>
 					<CardTitle className="text-lg md:text-xl">
 						Sign Up
