@@ -28,7 +28,9 @@ export const posts = createTable(
 			.timestamp({ withTimezone: true })
 			.default(sql`CURRENT_TIMESTAMP`)
 			.notNull(),
-		updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+		updatedAt: d
+			.timestamp({ withTimezone: true })
+			.$onUpdate(() => new Date()),
 	}),
 	(t) => [index("name_idx").on(t.name)],
 );

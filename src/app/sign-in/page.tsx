@@ -52,7 +52,9 @@ export default function SignIn() {
 		<div className="flex min-h-screen items-center justify-center">
 			<Card className="w-full max-w-md">
 				<CardHeader>
-					<CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
+					<CardTitle className="text-lg md:text-xl">
+						Sign In
+					</CardTitle>
 					<CardDescription className="text-xs md:text-sm">
 						Enter your email below to login to your account
 					</CardDescription>

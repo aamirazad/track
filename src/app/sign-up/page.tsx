@@ -45,7 +45,9 @@ export default function SignUp() {
 		<div className="flex min-h-screen items-center justify-center">
 			<Card className="z-50 w-full max-w-md rounded-md rounded-t-none">
 				<CardHeader>
-					<CardTitle className="text-lg md:text-xl">Sign Up</CardTitle>
+					<CardTitle className="text-lg md:text-xl">
+						Sign Up
+					</CardTitle>
 					<CardDescription className="text-xs md:text-sm">
 						Enter your information to create an account
 					</CardDescription>
@@ -108,13 +110,17 @@ export default function SignUp() {
 								id="password_confirmation"
 								type="password"
 								value={passwordConfirmation}
-								onChange={(e) => setPasswordConfirmation(e.target.value)}
+								onChange={(e) =>
+									setPasswordConfirmation(e.target.value)
+								}
 								autoComplete="new-password"
 								placeholder="Confirm Password"
 							/>
 						</div>
 						<div className="grid gap-2">
-							<Label htmlFor="image">Profile Image (optional)</Label>
+							<Label htmlFor="image">
+								Profile Image (optional)
+							</Label>
 							<div className="flex items-end gap-4">
 								{imagePreview && (
 									<div className="relative h-16 w-16 overflow-hidden rounded-sm">
@@ -155,7 +161,9 @@ export default function SignUp() {
 									email,
 									password,
 									name: `${firstName} ${lastName}`,
-									image: image ? await convertImageToBase64(image) : "",
+									image: image
+										? await convertImageToBase64(image)
+										: "",
 									callbackURL: "/dashboard",
 									fetchOptions: {
 										onResponse: () => {
@@ -185,7 +193,10 @@ export default function SignUp() {
 				<CardFooter>
 					<div className="flex w-full justify-center border-t py-4">
 						<p className="text-center text-neutral-500 text-xs">
-							Secured by <span className="text-orange-400">better-auth.</span>
+							Secured by{" "}
+							<span className="text-orange-400">
+								better-auth.
+							</span>
 						</p>
 					</div>
 				</CardFooter>

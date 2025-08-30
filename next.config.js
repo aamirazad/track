@@ -13,7 +13,7 @@ const config = {
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
-  allowedDevOrigins: ['3000.aamira.me'],
+	allowedDevOrigins: ["3000.aamira.me"],
 };
 
 export default config;
