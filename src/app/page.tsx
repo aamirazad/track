@@ -3,15 +3,10 @@ import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
 export default function HomePage() {
-	const {
-		data: session,
-		isPending, //loading state
-	} = authClient.useSession();
+	const { data: session, isPending } = authClient.useSession();
 	if (isPending) {
 		return <div>Loading...</div>;
 	}
-
-
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b">
@@ -19,10 +14,10 @@ export default function HomePage() {
 				{session ? (
 					<div className="flex flex-col items-center">
 						Welcome, {session.user.name}
-			
+						<Link href="/dashboard">Go to dashboard</Link>
 					</div>
 				) : (
-					<div className="itmes-center flex flex-col">
+					<div className="flex flex-col items-center">
 						Hello
 						<Link href="/sign-in">Sign in</Link>
 					</div>

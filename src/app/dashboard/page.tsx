@@ -1,17 +1,32 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
 
-export default async function DashboardPage() {
-	const session = await authClient.getSession();
+export default function DashboardPage() {
+	const router = useRouter();
+	const { data: session, isPending } = authClient.useSession();
+
+	// Redirect after session loads if unauthenticated
+	useEffect(() => {
+		if (!isPending && !session) {
+			router.push("/sign-in");
+		}
+	}, [isPending, session, router]);
+
+	if (isPending) {
+		return <div>Loading session...</div>; // Show skeleton while session is loading
+	}
 
 	if (!session) {
-		redirect("/signin");
+		return null;
 	}
 
 	return (
 		<div>
-			<h1>Welcome, {session.user.name} 👋</h1>
-			<p>Your email: {session.user.email}</p>
+			<h1>Welcome {session.user?.name}</h1>
+			{/* Your dashboard content */}
 		</div>
 	);
 }
