@@ -16,7 +16,11 @@ export default function DashboardPage() {
 	}, [isPending, session, router]);
 
 	if (isPending) {
-		return <div>Loading session...</div>; // Show skeleton while session is loading
+		return (
+			<div className="flex w-full flex-col items-center justify-center">
+				Loading session...
+			</div>
+		); // Show skeleton while session is loading
 	}
 
 	if (!session) {
@@ -24,8 +28,8 @@ export default function DashboardPage() {
 	}
 
 	return (
-		<div>
-			<h1>Welcome {session.user?.name}</h1>
+		<div className="flex w-full flex-col items-center justify-center">
+			<h1 className="">Welcome {session.user?.name}</h1>
 			{/* Your dashboard content */}
 		</div>
 	);
