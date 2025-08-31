@@ -10,12 +10,6 @@ function NavLinks({ isLandingPage }: { isLandingPage: boolean }) {
 			<nav className="hidden items-center gap-6 font-medium text-sm md:flex">
 				<a
 					className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-					href="#features"
-				>
-					Features
-				</a>
-				<a
-					className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
 					href="#organize"
 				>
 					Organize
