@@ -27,7 +27,7 @@ export default function LandingPage() {
 						</p>
 						<div className="flex flex-wrap gap-3">
 							<Link
-								href="/sign-in"
+								href="/sign-up"
 								className="rounded-md bg-slate-900 px-5 py-3 font-semibold text-sm text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:bg-slate-100 dark:text-slate-900 dark:focus:ring-slate-600 dark:hover:bg-white"
 							>
 								Start now (free) →
@@ -209,7 +209,7 @@ export default function LandingPage() {
 					</p>
 
 					<Link
-						href="/sign-in"
+						href="/sign-up"
 						className="rounded-md bg-slate-900 px-6 py-3 font-semibold text-sm text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
 					>
 						Get started →
