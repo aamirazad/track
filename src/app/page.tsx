@@ -167,27 +167,27 @@ export default function LandingPage() {
 				</div>
 				<div className="mt-8 grid gap-4 rounded-md border border-slate-300 bg-white p-4 shadow-sm md:grid-cols-4 dark:border-slate-800 dark:bg-slate-900">
 					{[
-						"The Left Hand of Darkness",
-						"Andor S1",
-						"Spirited Away",
-						"Dune",
-						"The Bear S2",
-						"Project Hail Mary",
-						"Blade Runner 2049",
-						"Oppenheimer",
+						{ title: "The Left Hand of Darkness", progress: 85 },
+						{ title: "Andor S1", progress: 100 },
+						{ title: "Spirited Away", progress: 100 },
+						{ title: "Dune", progress: 42 },
+						{ title: "The Bear S2", progress: 67 },
+						{ title: "Project Hail Mary", progress: 23 },
+						{ title: "Blade Runner 2049", progress: 100 },
+						{ title: "Oppenheimer", progress: 56 },
 					].map((item) => (
 						<div
-							key={item}
+							key={item.title}
 							className="flex flex-col gap-2 rounded-sm border border-slate-200 bg-slate-50 p-3 text-slate-700 text-xs dark:border-slate-800 dark:bg-slate-800 dark:text-slate-200"
 						>
 							<div className="line-clamp-2 font-medium leading-snug">
-								{item}
+								{item.title}
 							</div>
 							<div className="flex h-2 w-full overflow-hidden rounded bg-slate-200 dark:bg-slate-700">
 								<div
 									className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600"
 									style={{
-										width: `${40 + Math.random() * 55}%`,
+										width: `${item.progress}%`,
 									}}
 								/>
 							</div>
