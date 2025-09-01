@@ -4,11 +4,11 @@ import { Loader2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
+import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
 import { Button } from "@/components/ui/button";
 import {
-	Card,
 	CardContent,
 	CardDescription,
 	CardFooter,
@@ -42,33 +42,9 @@ export default function SignUp() {
 		}
 	};
 
-	const ref = useRef<HTMLDivElement>(null);
-	useEffect(() => {
-		const handleMouseMove = (e: MouseEvent) => {
-			const mouseX = e.clientX / window.innerWidth; // 0 → 1
-			const mouseY = e.clientY / window.innerHeight; // 0 → 1
-
-			// Scale it down so the gradient moves less
-			// Example: only move in the range [0%, 50%]
-			const scaledX = mouseX * 50;
-			const scaledY = mouseY * 50;
-
-			if (ref.current) {
-				ref.current.style.setProperty("--x", `${scaledX}%`);
-				ref.current.style.setProperty("--y", `${scaledY}%`);
-			}
-		};
-
-		window.addEventListener("mousemove", handleMouseMove);
-		return () => window.removeEventListener("mousemove", handleMouseMove);
-	}, []);
-
 	return (
 		<div className="flex flex-1 items-center justify-center">
-			<Card
-				ref={ref}
-				className="relative w-full max-w-md overflow-hidden bg-[radial-gradient(circle_at_var(--x)_var(--y),hsl(0_0%_100%/0.95)_0%,hsl(210_40%_99%/0.9)_8%,hsl(213_63%_96%/0.95)_18%,hsl(219_60%_93%/0.95)_32%,hsl(226_55%_90%/0.95)_48%,hsl(230_55%_86%/0.95)_66%,hsl(235_55%_82%)_100%)] ring-1 ring-slate-200/50 transition-[background-position] duration-300 [--x:50%] [--y:50%] dark:bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(255,255,255,0.15)_0%,rgba(255,255,255,0.08)_12%,rgba(255,255,255,0.05)_22%,oklch(0.208_0.042_265.755)_100%)] dark:ring-0"
-			>
+			<AuthFormWrapper>
 				<CardHeader>
 					<CardTitle className="text-lg md:text-xl">
 						Sign Up
@@ -229,7 +205,7 @@ export default function SignUp() {
 						</p>
 					</div>
 				</CardFooter>
-			</Card>
+			</AuthFormWrapper>
 		</div>
 	);
 }
