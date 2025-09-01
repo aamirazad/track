@@ -3,10 +3,10 @@
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
 import { Button } from "@/components/ui/button";
 import {
-	Card,
 	CardContent,
 	CardDescription,
 	CardFooter,
@@ -40,43 +40,9 @@ export default function SignIn() {
 		);
 	};
 
-	const ref = useRef<HTMLDivElement>(null);
-	useEffect(() => {
-		const handleMouseMove = (e: MouseEvent) => {
-			const mouseX = e.clientX / window.innerWidth; // 0 → 1
-			const mouseY = e.clientY / window.innerHeight; // 0 → 1
-
-			// Scale it down so the gradient moves less
-			// Example: only move in the range [0%, 50%]
-			const scaledX = mouseX * 50;
-			const scaledY = mouseY * 50;
-
-			if (ref.current) {
-				ref.current.style.setProperty("--x", `${scaledX}%`);
-				ref.current.style.setProperty("--y", `${scaledY}%`);
-			}
-		};
-
-		window.addEventListener("mousemove", handleMouseMove);
-		return () => window.removeEventListener("mousemove", handleMouseMove);
-	}, []);
-
 	return (
 		<div className="flex flex-1 items-center justify-center">
-			<Card
-				ref={ref}
-				className="w-full max-w-md border-none"
-				style={{
-					background: `
-          radial-gradient(
-            circle at var(--x, 0%) var(--y, 0%), 
-            rgba(0,0,0,0.6) 0%, 
-            rgba(0,0,0,0.6) 15%, 
-            oklch(0.208 0.042 265.755) 100%
-          )
-        `,
-				}}
-			>
+			<AuthFormWrapper>
 				<CardHeader>
 					<CardTitle className="text-lg md:text-xl">
 						Sign In
@@ -144,7 +110,7 @@ export default function SignIn() {
 						</p>
 					</div>
 				</CardFooter>
-			</Card>
+			</AuthFormWrapper>
 		</div>
 	);
 }
