@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export const config = {
-	matcher: ["/", "/home", "/app/:path*"],
+	matcher: ["/", "/home", "/sign-in", "/sign-up", "/app/:path*"],
 };
 
 export function middleware(request: NextRequest) {
@@ -10,9 +10,16 @@ export function middleware(request: NextRequest) {
 	const pathname = request.nextUrl.pathname;
 	const hasToken = !!token;
 
-	// has token & at root -> redirect to /app
-	if (hasToken && pathname === "/") {
-		return NextResponse.redirect(new URL("/app", request.url));
+	if (hasToken) {
+		// has token & at root -> redirect to /app
+		if (pathname === "/") {
+			return NextResponse.redirect(new URL("/app", request.url));
+		}
+
+		// has token, doesn't need to sign in/up
+		if (["/sign-in", "/sign-up"].includes(pathname)) {
+			return NextResponse.redirect(new URL("/app", request.url));
+		}
 	}
 
 	// no token & at /home -> redirect to /

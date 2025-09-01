@@ -3,7 +3,7 @@
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -15,21 +15,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { authClient, signIn } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 
 export default function SignIn() {
 	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
-
-	const { data: session } = authClient.useSession();
-
-	useEffect(() => {
-		if (session) {
-			router.push("/dashboard");
-		}
-	}, [session, router.push]);
 
 	const handleSubmit = async () => {
 		await signIn.email(
@@ -42,15 +34,49 @@ export default function SignIn() {
 					setLoading(true);
 				},
 				onResponse: () => {
-					router.push("/dashboard");
+					router.push("/app");
 				},
 			},
 		);
 	};
 
+	const ref = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		const handleMouseMove = (e: MouseEvent) => {
+			const mouseX = e.clientX / window.innerWidth; // 0 → 1
+			const mouseY = e.clientY / window.innerHeight; // 0 → 1
+
+			// Scale it down so the gradient moves less
+			// Example: only move in the range [0%, 50%]
+			const scaledX = mouseX * 50;
+			const scaledY = mouseY * 50;
+
+			if (ref.current) {
+				ref.current.style.setProperty("--x", `${scaledX}%`);
+				ref.current.style.setProperty("--y", `${scaledY}%`);
+			}
+		};
+
+		window.addEventListener("mousemove", handleMouseMove);
+		return () => window.removeEventListener("mousemove", handleMouseMove);
+	}, []);
+
 	return (
 		<div className="flex flex-1 items-center justify-center">
-			<Card className="w-full max-w-md">
+			<Card
+				ref={ref}
+				className="w-full max-w-md border-none"
+				style={{
+					background: `
+          radial-gradient(
+            circle at var(--x, 0%) var(--y, 0%), 
+            rgba(0,0,0,0.6) 0%, 
+            rgba(0,0,0,0.6) 15%, 
+            oklch(0.208 0.042 265.755) 100%
+          )
+        `,
+				}}
+			>
 				<CardHeader>
 					<CardTitle className="text-lg md:text-xl">
 						Sign In
@@ -102,21 +128,19 @@ export default function SignIn() {
 								<p> Login </p>
 							)}
 						</Button>
+						<div className="w-full text-center font-slate">
+							Don't have an account?{" "}
+							<Link className="Link" href="/sign-up">
+								Create an account
+							</Link>
+						</div>
 					</div>
 				</CardContent>
 				<CardFooter>
 					<div className="flex w-full justify-center border-t py-4">
 						<p className="text-center text-neutral-500 text-xs">
-							built with{" "}
-							<Link
-								href="https://better-auth.com"
-								className="underline"
-								target="_blank"
-							>
-								<span className="cursor-pointer dark:text-white/70">
-									better-auth.
-								</span>
-							</Link>
+							Secured by{" "}
+							<span className="font-bold">better-auth.</span>
 						</p>
 					</div>
 				</CardFooter>

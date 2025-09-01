@@ -2,8 +2,9 @@
 
 import { Loader2, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,9 +42,43 @@ export default function SignUp() {
 		}
 	};
 
+	const ref = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		const handleMouseMove = (e: MouseEvent) => {
+			const mouseX = e.clientX / window.innerWidth; // 0 → 1
+			const mouseY = e.clientY / window.innerHeight; // 0 → 1
+
+			// Scale it down so the gradient moves less
+			// Example: only move in the range [0%, 50%]
+			const scaledX = mouseX * 50;
+			const scaledY = mouseY * 50;
+
+			if (ref.current) {
+				ref.current.style.setProperty("--x", `${scaledX}%`);
+				ref.current.style.setProperty("--y", `${scaledY}%`);
+			}
+		};
+
+		window.addEventListener("mousemove", handleMouseMove);
+		return () => window.removeEventListener("mousemove", handleMouseMove);
+	}, []);
+
 	return (
 		<div className="flex flex-1 items-center justify-center">
-			<Card className="z-50 w-full max-w-md rounded-md">
+			<Card
+				ref={ref}
+				className="w-full max-w-md border-none"
+				style={{
+					background: `
+          radial-gradient(
+            circle at var(--x, 0%) var(--y, 0%), 
+            rgba(0,0,0,0.6) 0%, 
+            rgba(0,0,0,0.6) 15%, 
+            oklch(0.208 0.042 265.755) 100%
+          )
+        `,
+				}}
+			>
 				<CardHeader>
 					<CardTitle className="text-lg md:text-xl">
 						Sign Up
@@ -164,7 +199,7 @@ export default function SignUp() {
 									image: image
 										? await convertImageToBase64(image)
 										: "",
-									callbackURL: "/dashboard",
+									callbackURL: "/app",
 									fetchOptions: {
 										onResponse: () => {
 											setLoading(false);
@@ -176,7 +211,7 @@ export default function SignUp() {
 											toast.error(ctx.error.message);
 										},
 										onSuccess: async () => {
-											router.push("/dashboard");
+											router.push("/app");
 										},
 									},
 								});
@@ -188,15 +223,19 @@ export default function SignUp() {
 								"Create an account"
 							)}
 						</Button>
+						<div className="w-full text-center font-slate">
+							Already have an account?{" "}
+							<Link className="Link" href="/sign-in">
+								Sign in
+							</Link>
+						</div>
 					</div>
 				</CardContent>
 				<CardFooter>
 					<div className="flex w-full justify-center border-t py-4">
 						<p className="text-center text-neutral-500 text-xs">
 							Secured by{" "}
-							<span className="text-orange-400">
-								better-auth.
-							</span>
+							<span className="font-bold">better-auth.</span>
 						</p>
 					</div>
 				</CardFooter>

@@ -47,7 +47,7 @@ export default function Header() {
 				{isLandingPage ? (
 					session ? (
 						<Link
-							href="/"
+							href="/app"
 							className="inline-flex h-9 w-26 items-center justify-center rounded-md bg-white px-4 font-medium text-slate-800 text-sm leading-none shadow-sm hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
 						>
 							Dashboard
