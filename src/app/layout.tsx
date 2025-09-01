@@ -10,7 +10,7 @@ import { Toaster } from "sonner";
 export const metadata: Metadata = {
 	title: "TrackShelf",
 	description: "Track movies you have watched and books you have read",
-	icons: [{ rel: "icon", url: "/favicon.ico" }],
+	icons: [{ rel: "icon", url: "/img/books.svg" }],
 };
 
 const geist = Geist({
