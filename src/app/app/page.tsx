@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
 export default function DashboardPage() {
@@ -15,22 +16,13 @@ export default function DashboardPage() {
 		}
 	}, [isPending, session, router]);
 
-	if (isPending) {
-		return (
-			<div className="flex w-full flex-col items-center justify-center">
-				Loading session...
-			</div>
-		); // Show skeleton while session is loading
-	}
-
-	if (!session) {
-		return null;
-	}
-
 	return (
-		<div className="flex w-full flex-col items-center justify-center">
-			<h1 className="">Welcome {session.user?.name}</h1>
-			{/* Your dashboard content */}
+		<div className="flex flex-col items-center justify-center gap-4 border-2">
+			{[1, 2, 3, 4].map((i) => (
+				<Button className="w-34 rounded-r-none rounded-l-md" key={i}>
+					{i}
+				</Button>
+			))}
 		</div>
 	);
 }
