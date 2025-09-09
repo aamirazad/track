@@ -47,7 +47,7 @@ export default function RootLayout({
 									"linear-gradient(120deg,rgba(120,178,255,.35),rgba(255,138,246,.25),rgba(140,255,210,.25))",
 							}}
 						/>
-						<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)]" />
+						<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] bg-[size:70px_70px] dark:bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)]" />
 
 						<div className="relative z-10 flex min-h-screen flex-col">
 							<Toaster />

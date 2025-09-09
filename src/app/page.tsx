@@ -28,13 +28,13 @@ export default function LandingPage() {
 						<div className="flex flex-wrap gap-3">
 							<Link
 								href="/sign-up"
-								className="rounded-md bg-slate-900 px-5 py-3 font-semibold text-sm text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:bg-slate-100 dark:text-slate-900 dark:focus:ring-slate-600 dark:hover:bg-white"
+								className="rounded-sm bg-slate-900 px-5 py-3 font-semibold text-sm text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:bg-slate-100 dark:text-slate-900 dark:focus:ring-slate-600 dark:hover:bg-white"
 							>
 								Start now (free) →
 							</Link>
 							<a
 								href="#organize"
-								className="rounded-md border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 text-sm shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
+								className="rounded-sm border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 text-sm shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
 							>
 								Learn more
 							</a>
@@ -90,7 +90,7 @@ export default function LandingPage() {
 							].map((card) => (
 								<div
 									key={card.title}
-									className="flex flex-col rounded-md border border-slate-300 bg-white p-4 text-slate-700 shadow-sm hover:border-slate-400 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600"
+									className="flex flex-col rounded-sm border border-slate-300 bg-white p-4 text-slate-700 shadow-sm hover:border-slate-400 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600"
 								>
 									<div className="mb-2 flex items-center gap-2 font-medium">
 										{card.emoji}
@@ -114,8 +114,8 @@ export default function LandingPage() {
 							Organize without friction
 						</h2>
 						<p className="text-slate-600 text-sm leading-relaxed dark:text-slate-300">
-							Drop items into groups. TrackShelf should adapt to
-							your brain, not the other way around.
+							Drag and drop functionality. TrackShelf should adapt
+							to your brain, not the other way around.
 						</p>
 						<ul className="mt-2 space-y-2 text-slate-600 text-xs dark:text-slate-400">
 							<li>• Edit everything</li>
@@ -125,7 +125,7 @@ export default function LandingPage() {
 						</ul>
 					</div>
 					<div className="flex flex-col gap-4">
-						<div className="rounded-md border border-slate-300 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+						<div className="rounded-sm border border-slate-300 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
 							<div className="mb-3 font-medium text-slate-500 text-xs uppercase tracking-wide dark:text-slate-400">
 								Snapshot mock
 							</div>
@@ -165,7 +165,7 @@ export default function LandingPage() {
 						<span>Adaptive grouping</span>
 					</div>
 				</div>
-				<div className="mt-8 grid gap-4 rounded-md border border-slate-300 bg-white p-4 shadow-sm md:grid-cols-4 dark:border-slate-800 dark:bg-slate-900">
+				<div className="mt-8 grid gap-4 rounded-sm border border-slate-300 bg-white p-4 shadow-sm md:grid-cols-4 dark:border-slate-800 dark:bg-slate-900">
 					{[
 						{ title: "The Left Hand of Darkness", progress: 85 },
 						{ title: "Andor S1", progress: 100 },
@@ -198,7 +198,7 @@ export default function LandingPage() {
 
 			{/* CTA Footer */}
 			<div className="mx-auto max-w-4xl px-6 pb-20">
-				<div className="flex flex-col items-center gap-6 rounded-md border border-slate-300 bg-white px-8 py-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+				<div className="flex flex-col items-center gap-6 rounded-sm border border-slate-300 bg-white px-8 py-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
 					<h2 className="max-w-2xl font-bold text-2xl text-slate-800 tracking-tight dark:text-slate-100">
 						Come try it out for yourself
 					</h2>
@@ -210,7 +210,7 @@ export default function LandingPage() {
 
 					<Link
 						href="/sign-up"
-						className="rounded-md bg-slate-900 px-6 py-3 font-semibold text-sm text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+						className="rounded-sm bg-slate-900 px-6 py-3 font-semibold text-sm text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
 					>
 						Get started →
 					</Link>
