@@ -30,17 +30,22 @@ export default function Header() {
 	const pathname = usePathname();
 	const { data: session, isPending } = authClient.useSession();
 	const isLandingPage = pathname === "/" || pathname === "/home";
+	const isDashboard = pathname.startsWith("/app");
 
 	return (
-		<header className="flex items-center justify-between gap-4 px-6 py-5">
+		<header
+			className={`fixed z-11 flex w-screen items-center justify-between gap-4 px-6 transition-all duration-300 ${isDashboard ? "bg-[#030712] py-2" : "py-5"}`}
+		>
 			<Link
 				href={pathname === "/app" ? "/home" : "/"}
 				className="flex items-center gap-2 font-semibold tracking-tight"
 			>
-				<div className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+				<div
+					className={`flex items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 ${isDashboard ? "h-4 w-4" : "h-9 w-9"}`}
+				>
 					📚
 				</div>
-				<span className="text-lg">TrackShelf</span>
+				<span className="text-md">TrackShelf</span>
 			</Link>
 			<NavLinks isLandingPage={isLandingPage} />
 			<div className="flex items-center gap-3">

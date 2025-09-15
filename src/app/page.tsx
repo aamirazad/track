@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function LandingPage() {
 	return (
-		<div className="mx-auto">
+		<div className="mx-64">
 			{/* Hero */}
 			<section className="justify-center px-6 pt-24 pb-36">
 				<div className="grid gap-12 md:grid-cols-5 md:gap-10">

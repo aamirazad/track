@@ -1,4 +1,4 @@
-import Header from "@/components/blocks/header";
+import LayoutWrapper from "@/components/layout-wrapper";
 import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 
@@ -39,7 +39,9 @@ export default function RootLayout({
 						data-site-id="5"
 						strategy="afterInteractive"
 					/>
-					<main className="relative min-h-screen w-full overflow-hidden bg-[radial-gradient(circle_at_20%_20%,theme(colors.slate.200)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_20%_20%,theme(colors.slate.800)_0%,transparent_60%)]">
+					<Toaster />
+
+					<div className="relative min-h-screen w-full overflow-hidden bg-[radial-gradient(circle_at_20%_20%,theme(colors.slate.200)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_20%_20%,theme(colors.slate.800)_0%,transparent_60%)]">
 						<div
 							className="pointer-events-none absolute inset-0 opacity-60 mix-blend-multiply dark:opacity-40"
 							style={{
@@ -49,19 +51,16 @@ export default function RootLayout({
 						/>
 						<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)]" />
 
-						<div className="relative z-10 flex min-h-screen flex-col">
-							<Toaster />
-							<Header />
-							<div className="flex flex-1">{children}</div>
-							<footer>
-								<div className="mt-10 flex flex-col items-center gap-2 pb-10 text-[11px] text-slate-500 dark:text-slate-500">
-									<div>
-										© {new Date().getFullYear()} TrackShelf
-									</div>
+						<LayoutWrapper>{children}</LayoutWrapper>
+
+						<footer className="mt-auto">
+							<div className="mt-10 flex flex-col items-center gap-2 pb-10 text-[11px] text-slate-500 dark:text-slate-500">
+								<div>
+									© {new Date().getFullYear()} TrackShelf
 								</div>
-							</footer>
-						</div>
-					</main>
+							</div>
+						</footer>
+					</div>
 				</ThemeProvider>
 			</body>
 		</html>
