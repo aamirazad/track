@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { authClient } from "@/lib/auth-client";
 
 function NavLinks({ isLandingPage }: { isLandingPage: boolean }) {
@@ -41,7 +40,9 @@ export default function Header() {
 				className="flex items-center gap-2 font-semibold tracking-tight"
 			>
 				<div
-					className={`flex items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 ${isDashboard ? "h-4 w-4" : "h-9 w-9"}`}
+					className={`flex items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 ${
+						isDashboard ? "h-4 w-4" : "h-9 w-9"
+					}`}
 				>
 					📚
 				</div>
@@ -70,7 +71,6 @@ export default function Header() {
 						</Link>
 					)
 				) : null}
-				<ThemeToggle />
 			</div>
 		</header>
 	);
