@@ -20,7 +20,10 @@
 					}
 				}
 			},
-			"recommended": true
+			"recommended": true,
+			"performance": {
+				"noImgElement": "off"
+			}
 		},
 		"domains": {
 			"next": "recommended"
