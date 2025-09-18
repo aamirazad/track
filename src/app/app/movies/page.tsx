@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getMovies, type Movie } from "@/app/actions/movies";
+import { AddMovieModal } from "@/components/ui/add-movie-modal";
 import { MovieCard } from "@/components/ui/movie-card";
 import { NotesModal } from "@/components/ui/notes-modal";
-import { AddMovieModal } from "@/components/ui/add-movie-modal";
-import { getMovies, type Movie } from "@/app/actions/movies";
 
 export default function MoviesPage() {
 	const [selectedItem, setSelectedItem] = useState<Movie | null>(null);
@@ -48,8 +48,11 @@ export default function MoviesPage() {
 				</div>
 				<div className="grid grid-cols-1 gap-4">
 					{[...Array(6)].map((_, i) => (
-						<div key={`skeleton-${i}`} className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
-							<div className="h-20 animate-pulse bg-gray-200 dark:bg-gray-700 rounded" />
+						<div
+							key={`skeleton-${i}`}
+							className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm"
+						>
+							<div className="h-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
 						</div>
 					))}
 				</div>
@@ -64,10 +67,9 @@ export default function MoviesPage() {
 					<div>
 						<h1 className="font-bold text-5xl">My Movies</h1>
 						<p className="text-slate-600 dark:text-slate-400">
-							{movies.length === 0 
-								? "No movies tracked yet" 
-								: `${movies.length} movie${movies.length === 1 ? "" : "s"} in your collection`
-							}
+							{movies.length === 0
+								? "No movies tracked yet"
+								: `${movies.length} movie${movies.length === 1 ? "" : "s"} in your collection`}
 						</p>
 					</div>
 					<AddMovieModal onMovieAdded={loadMovies} />
@@ -76,11 +78,14 @@ export default function MoviesPage() {
 
 			{movies.length === 0 ? (
 				<div className="flex flex-col items-center justify-center py-16 text-center">
-					<div className="text-6xl mb-4">🎬</div>
-					<h2 className="font-semibold text-2xl mb-2">No movies yet</h2>
-					<p className="text-slate-600 dark:text-slate-400 mb-6 max-w-md">
-						Start building your movie collection by adding your first film. 
-						Track what you've watched, rate them, and add your thoughts!
+					<div className="mb-4 text-6xl">🎬</div>
+					<h2 className="mb-2 font-semibold text-2xl">
+						No movies yet
+					</h2>
+					<p className="mb-6 max-w-md text-slate-600 dark:text-slate-400">
+						Start building your movie collection by adding your
+						first film. Track what you've watched, rate them, and
+						add your thoughts!
 					</p>
 					<AddMovieModal onMovieAdded={loadMovies} />
 				</div>

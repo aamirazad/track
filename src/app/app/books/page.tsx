@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { type Book, getBooks } from "@/app/actions/books";
+import { AddBookModal } from "@/components/ui/add-book-modal";
 import { BookCard } from "@/components/ui/book-card";
 import { NotesModal } from "@/components/ui/notes-modal";
-import { AddBookModal } from "@/components/ui/add-book-modal";
-import { getBooks, type Book } from "@/app/actions/books";
 
 export default function BooksPage() {
 	const [selectedItem, setSelectedItem] = useState<Book | null>(null);
@@ -48,8 +48,11 @@ export default function BooksPage() {
 				</div>
 				<div className="grid grid-cols-1 gap-4">
 					{[...Array(6)].map((_, i) => (
-						<div key={`skeleton-${i}`} className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
-							<div className="h-20 animate-pulse bg-gray-200 dark:bg-gray-700 rounded" />
+						<div
+							key={`skeleton-${i}`}
+							className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm"
+						>
+							<div className="h-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
 						</div>
 					))}
 				</div>
@@ -64,10 +67,9 @@ export default function BooksPage() {
 					<div>
 						<h1 className="font-bold text-5xl">My Books</h1>
 						<p className="text-slate-600 dark:text-slate-400">
-							{books.length === 0 
-								? "No books tracked yet" 
-								: `${books.length} book${books.length === 1 ? "" : "s"} in your collection`
-							}
+							{books.length === 0
+								? "No books tracked yet"
+								: `${books.length} book${books.length === 1 ? "" : "s"} in your collection`}
 						</p>
 					</div>
 					<AddBookModal onBookAdded={loadBooks} />
@@ -76,11 +78,14 @@ export default function BooksPage() {
 
 			{books.length === 0 ? (
 				<div className="flex flex-col items-center justify-center py-16 text-center">
-					<div className="text-6xl mb-4">📚</div>
-					<h2 className="font-semibold text-2xl mb-2">No books yet</h2>
-					<p className="text-slate-600 dark:text-slate-400 mb-6 max-w-md">
-						Start building your reading collection by adding your first book. 
-						Track what you've read, rate them, and add your thoughts!
+					<div className="mb-4 text-6xl">📚</div>
+					<h2 className="mb-2 font-semibold text-2xl">
+						No books yet
+					</h2>
+					<p className="mb-6 max-w-md text-slate-600 dark:text-slate-400">
+						Start building your reading collection by adding your
+						first book. Track what you've read, rate them, and add
+						your thoughts!
 					</p>
 					<AddBookModal onBookAdded={loadBooks} />
 				</div>
