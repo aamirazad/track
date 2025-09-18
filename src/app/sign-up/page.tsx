@@ -1,12 +1,12 @@
 "use client";
 
-import { Loader2, X } from "lucide-react";
+import { AlertCircleIcon, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
 	CardContent,
@@ -29,6 +29,7 @@ export default function SignUp() {
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -39,6 +40,45 @@ export default function SignUp() {
 				setImagePreview(reader.result as string);
 			};
 			reader.readAsDataURL(file);
+		}
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
+		setError(null);
+
+		if (password !== passwordConfirmation) {
+			setError("Passwords do not match");
+			setLoading(false);
+			return;
+		}
+
+		try {
+			await signUp.email({
+				email,
+				password,
+				name: `${firstName} ${lastName}`,
+				image: image ? await convertImageToBase64(image) : "",
+				callbackURL: "/app",
+				fetchOptions: {
+					onResponse: () => {
+						setLoading(false);
+					},
+					onRequest: () => {
+						setLoading(true);
+					},
+					onError: (ctx) => {
+						setError(ctx.error.message);
+					},
+					onSuccess: async () => {
+						router.push("/app");
+					},
+				},
+			});
+		} catch {
+			setError("An unexpected error occurred");
+			setLoading(false);
 		}
 	};
 
@@ -54,7 +94,14 @@ export default function SignUp() {
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<div className="grid gap-4">
+					<form onSubmit={handleSubmit} className="grid gap-4">
+						{error && (
+							<Alert variant={"destructive"}>
+								<AlertCircleIcon />
+								<AlertDescription>{error}</AlertDescription>
+							</Alert>
+						)}
+
 						<div className="grid grid-cols-2 gap-4">
 							<div className="grid gap-2">
 								<Label htmlFor="first-name">First name</Label>
@@ -118,70 +165,11 @@ export default function SignUp() {
 								placeholder="Confirm Password"
 							/>
 						</div>
-						<div className="grid gap-2">
-							<Label htmlFor="image">
-								Profile Image (optional)
-							</Label>
-							<div className="flex items-end gap-4">
-								{imagePreview && (
-									<div className="relative h-16 w-16 overflow-hidden rounded-sm">
-										<Image
-											src={imagePreview}
-											alt="Profile preview"
-											layout="fill"
-											objectFit="cover"
-										/>
-									</div>
-								)}
-								<div className="flex w-full items-center gap-2">
-									<Input
-										id="image"
-										type="file"
-										accept="image/*"
-										onChange={handleImageChange}
-										className="w-full"
-									/>
-									{imagePreview && (
-										<X
-											className="cursor-pointer"
-											onClick={() => {
-												setImage(null);
-												setImagePreview(null);
-											}}
-										/>
-									)}
-								</div>
-							</div>
-						</div>
+
 						<Button
 							type="submit"
 							className="w-full"
 							disabled={loading}
-							onClick={async () => {
-								await signUp.email({
-									email,
-									password,
-									name: `${firstName} ${lastName}`,
-									image: image
-										? await convertImageToBase64(image)
-										: "",
-									callbackURL: "/app",
-									fetchOptions: {
-										onResponse: () => {
-											setLoading(false);
-										},
-										onRequest: () => {
-											setLoading(true);
-										},
-										onError: (ctx) => {
-											toast.error(ctx.error.message);
-										},
-										onSuccess: async () => {
-											router.push("/app");
-										},
-									},
-								});
-							}}
 						>
 							{loading ? (
 								<Loader2 size={16} className="animate-spin" />
@@ -195,7 +183,7 @@ export default function SignUp() {
 								Sign in
 							</Link>
 						</div>
-					</div>
+					</form>
 				</CardContent>
 				<CardFooter>
 					<div className="flex w-full justify-center border-t py-4">

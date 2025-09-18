@@ -5,6 +5,8 @@ import { sql } from "drizzle-orm";
 import {
 	boolean,
 	index,
+	integer,
+	numeric,
 	pgTable,
 	pgTableCreator,
 	text,
@@ -94,4 +96,45 @@ export const verification = pgTable("verification", {
 	updatedAt: timestamp("updated_at").$defaultFn(
 		() => /* @__PURE__ */ new Date(),
 	),
+});
+
+export const books = createTable("book", {
+	id: text("id").primaryKey(),
+	title: text("title").notNull(),
+	author: text("author").notNull(),
+	coverUrl: text("cover_url"),
+	rating: numeric("rating", { precision: 2, scale: 1 }),
+	dateCompleted: timestamp("date_completed").notNull(),
+	notes: text("notes").notNull().default(""),
+	genres: text("genres").array().notNull().default([]),
+	userId: text("user_id")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	createdAt: timestamp("created_at")
+		.$defaultFn(() => new Date())
+		.notNull(),
+	updatedAt: timestamp("updated_at")
+		.$defaultFn(() => new Date())
+		.notNull(),
+});
+
+export const movies = createTable("movie", {
+	id: text("id").primaryKey(),
+	title: text("title").notNull(),
+	director: text("director").notNull(),
+	posterUrl: text("poster_url"),
+	rating: numeric("rating", { precision: 2, scale: 1 }),
+	dateWatched: timestamp("date_watched").notNull(),
+	notes: text("notes").notNull().default(""),
+	genres: text("genres").array().notNull().default([]),
+	runtime: integer("runtime"),
+	userId: text("user_id")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	createdAt: timestamp("created_at")
+		.$defaultFn(() => new Date())
+		.notNull(),
+	updatedAt: timestamp("updated_at")
+		.$defaultFn(() => new Date())
+		.notNull(),
 });

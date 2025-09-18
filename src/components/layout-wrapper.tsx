@@ -19,7 +19,7 @@ export default function LayoutWrapper({
 				<Header />
 				<div className="flex flex-1 flex-col">
 					<main
-						className={`flex-1 p-6 ${isAppRoute ? "pt-16 md:ml-60" : ""}`}
+						className={`z-10 flex-1 p-6 ${isAppRoute ? "pt-20 md:ml-60" : ""}`}
 					>
 						{children}
 					</main>

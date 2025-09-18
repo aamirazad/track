@@ -1,10 +1,11 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
+import { AlertCircleIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
 	CardContent,
@@ -22,22 +23,22 @@ export default function SignIn() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>();
 
-	const handleSubmit = async () => {
-		await signIn.email(
-			{
-				email,
-				password,
-			},
-			{
-				onRequest: () => {
-					setLoading(true);
-				},
-				onResponse: () => {
-					router.push("/app");
-				},
-			},
-		);
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
+		setError(null);
+		const res = await signIn.email({
+			email,
+			password,
+		});
+		if (res.error) {
+			setError(res.error.message);
+		} else {
+			router.push("/app");
+		}
+		setLoading(false);
 	};
 
 	return (
@@ -52,7 +53,14 @@ export default function SignIn() {
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<div className="grid gap-4">
+					<form onSubmit={handleSubmit} className="grid gap-4">
+						{error && (
+							<Alert variant={"destructive"}>
+								<AlertCircleIcon />
+								<AlertDescription> {error}</AlertDescription>
+							</Alert>
+						)}
+
 						<div className="grid gap-2">
 							<Label htmlFor="email">Email</Label>
 							<Input
@@ -86,21 +94,21 @@ export default function SignIn() {
 							type="submit"
 							className="w-full"
 							disabled={loading}
-							onClick={handleSubmit}
 						>
 							{loading ? (
 								<Loader2 size={16} className="animate-spin" />
 							) : (
-								<p> Login </p>
+								"Login"
 							)}
 						</Button>
+
 						<div className="w-full text-center font-slate">
 							Don't have an account?{" "}
 							<Link className="Link" href="/sign-up">
 								Create an account
 							</Link>
 						</div>
-					</div>
+					</form>
 				</CardContent>
 				<CardFooter>
 					<div className="flex w-full justify-center border-t py-4">

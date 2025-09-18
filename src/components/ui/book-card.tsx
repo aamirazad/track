@@ -1,8 +1,8 @@
 "use client";
 
 import { Star } from "lucide-react";
+import type { Book } from "@/app/actions/books";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Book } from "@/lib/mock-data";
 
 interface BookCardProps {
 	book: Book;
@@ -12,7 +12,7 @@ interface BookCardProps {
 export function BookCard({ book, onClick }: BookCardProps) {
 	return (
 		<Card
-			className="cursor-pointer transition-all hover:scale-105 hover:shadow-lg"
+			className="hover cursor-pointer transition-all hover:bg-gray-900"
 			onClick={onClick}
 		>
 			<CardContent className="p-4">
@@ -44,7 +44,12 @@ export function BookCard({ book, onClick }: BookCardProps) {
 									<Star
 										key={`star-${book.id}-${i}`}
 										className={`h-4 w-4 ${
-											i < Math.floor(book.rating ?? 0)
+											i <
+											Math.floor(
+												Number.parseFloat(
+													book.rating!,
+												) || 0,
+											)
 												? "fill-yellow-400 text-yellow-400"
 												: "text-slate-300"
 										}`}

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
 function NavLinks({ isLandingPage }: { isLandingPage: boolean }) {
@@ -27,13 +28,14 @@ function NavLinks({ isLandingPage }: { isLandingPage: boolean }) {
 
 export default function Header() {
 	const pathname = usePathname();
+	const router = useRouter();
 	const { data: session, isPending } = authClient.useSession();
 	const isLandingPage = pathname === "/" || pathname === "/home";
 	const isDashboard = pathname.startsWith("/app");
 
 	return (
 		<header
-			className={`fixed z-11 flex w-screen items-center justify-between gap-4 px-6 transition-all duration-300 ${isDashboard ? "bg-[#030712] py-2" : "py-5"}`}
+			className={`fixed z-11 flex w-screen items-center justify-between gap-4 px-6 transition-all duration-300 ${isDashboard ? "h-12 border-b bg-[#030712]" : "h-20 py-5"}`}
 		>
 			<Link
 				href={pathname === "/app" ? "/home" : "/"}
@@ -70,7 +72,24 @@ export default function Header() {
 							Sign in
 						</Link>
 					)
-				) : null}
+				) : (
+					session && (
+						<Button
+							variant={"outline"}
+							onClick={async () => {
+								await authClient.signOut({
+									fetchOptions: {
+										onSuccess: () => {
+											router.push("/sign-in");
+										},
+									},
+								});
+							}}
+						>
+							Sign out
+						</Button>
+					)
+				)}
 			</div>
 		</header>
 	);

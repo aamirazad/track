@@ -1,8 +1,8 @@
 "use client";
 
 import { Clock, Star } from "lucide-react";
+import type { Movie } from "@/app/actions/movies";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Movie } from "@/lib/mock-data";
 
 interface MovieCardProps {
 	movie: Movie;
@@ -12,7 +12,7 @@ interface MovieCardProps {
 export function MovieCard({ movie, onClick }: MovieCardProps) {
 	return (
 		<Card
-			className="cursor-pointer transition-all hover:scale-105 hover:shadow-lg"
+			className="cursor-pointer transition-all hover:bg-gray-900"
 			onClick={onClick}
 		>
 			<CardContent className="p-4">

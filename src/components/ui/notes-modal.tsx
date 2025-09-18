@@ -1,27 +1,69 @@
 "use client";
 
-import { Calendar, Clock, Star, User } from "lucide-react";
+import { Calendar, Clock, Edit3, Save, Star, User, X } from "lucide-react";
+import { useState } from "react";
+import { type Book, updateBookNotes } from "@/app/actions/books";
+import { type Movie, updateMovieNotes } from "@/app/actions/movies";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import type { Book, Movie } from "@/lib/mock-data";
 
 interface NotesModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	item: Book | Movie | null;
 	type: "book" | "movie";
+	onNotesUpdate?: () => void;
 }
 
-export function NotesModal({ isOpen, onClose, item, type }: NotesModalProps) {
+export function NotesModal({
+	isOpen,
+	onClose,
+	item,
+	type,
+	onNotesUpdate,
+}: NotesModalProps) {
+	const [isEditing, setIsEditing] = useState(false);
+	const [notes, setNotes] = useState("");
+	const [isSaving, setIsSaving] = useState(false);
+
 	if (!item) return null;
 
 	const isBook = type === "book";
 	const book = isBook ? (item as Book) : null;
 	const movie = !isBook ? (item as Movie) : null;
+
+	const handleEditClick = () => {
+		setNotes(item.notes);
+		setIsEditing(true);
+	};
+
+	const handleSave = async () => {
+		setIsSaving(true);
+		try {
+			const success = isBook
+				? await updateBookNotes(item.id, notes)
+				: await updateMovieNotes(item.id, notes);
+
+			if (success) {
+				setIsEditing(false);
+				onNotesUpdate?.();
+			}
+		} catch (error) {
+			console.error("Error saving notes:", error);
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	const handleCancel = () => {
+		setNotes(item.notes);
+		setIsEditing(false);
+	};
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
@@ -32,9 +74,9 @@ export function NotesModal({ isOpen, onClose, item, type }: NotesModalProps) {
 							{(isBook ? book?.coverUrl : movie?.posterUrl) ? (
 								<img
 									src={
-										isBook
+										(isBook
 											? book?.coverUrl
-											: movie?.posterUrl
+											: movie?.posterUrl) || ""
 									}
 									alt={`${item.title} ${isBook ? "cover" : "poster"}`}
 									className="h-20 w-14 rounded object-cover"
@@ -67,7 +109,12 @@ export function NotesModal({ isOpen, onClose, item, type }: NotesModalProps) {
 									<Star
 										key={`modal-star-${item.id}-${i}`}
 										className={`h-4 w-4 ${
-											i < Math.floor(item.rating ?? 0)
+											i <
+											Math.floor(
+												Number.parseFloat(
+													item.rating || "0",
+												),
+											)
 												? "fill-yellow-400 text-yellow-400"
 												: "text-slate-300"
 										}`}
@@ -117,15 +164,60 @@ export function NotesModal({ isOpen, onClose, item, type }: NotesModalProps) {
 
 					{/* Notes */}
 					<div>
-						<h3 className="mb-2 flex items-center gap-2 font-semibold">
-							<User className="h-4 w-4" />
-							My Notes
-						</h3>
-						<div className="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
-							<p className="whitespace-pre-wrap text-sm leading-relaxed">
-								{item.notes}
-							</p>
+						<div className="mb-2 flex items-center justify-between">
+							<h3 className="flex items-center gap-2 font-semibold">
+								<User className="h-4 w-4" />
+								My Notes
+							</h3>
+							{!isEditing && (
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={handleEditClick}
+									className="flex items-center gap-1"
+								>
+									<Edit3 className="h-3 w-3" />
+									Edit
+								</Button>
+							)}
 						</div>
+
+						{isEditing ? (
+							<div className="space-y-3">
+								<textarea
+									value={notes}
+									onChange={(e) => setNotes(e.target.value)}
+									className="min-h-32 w-full resize-y rounded-lg border border-gray-300 p-3 text-sm dark:border-gray-600 dark:bg-gray-800"
+									placeholder="Add your thoughts, favorite quotes, or anything you want to remember about this item..."
+								/>
+								<div className="flex justify-end gap-2">
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={handleCancel}
+										disabled={isSaving}
+									>
+										<X className="mr-1 h-3 w-3" />
+										Cancel
+									</Button>
+									<Button
+										size="sm"
+										onClick={handleSave}
+										disabled={isSaving}
+									>
+										<Save className="mr-1 h-3 w-3" />
+										{isSaving ? "Saving..." : "Save"}
+									</Button>
+								</div>
+							</div>
+						) : (
+							<div className="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
+								<p className="whitespace-pre-wrap text-sm leading-relaxed">
+									{item.notes ||
+										"No notes yet. Click Edit to add your thoughts!"}
+								</p>
+							</div>
+						)}
 					</div>
 				</div>
 			</DialogContent>
