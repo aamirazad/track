@@ -18,7 +18,11 @@ export default function LayoutWrapper({
 				<AppSidebar />
 				<Header />
 				<div className="flex flex-1 flex-col">
-					<main className="flex-1 p-6">{children}</main>
+					<main
+						className={`z-10 flex-1 p-6 ${isAppRoute ? "pt-20 md:ml-60" : ""}`}
+					>
+						{children}
+					</main>
 				</div>
 			</div>
 		</SidebarProvider>

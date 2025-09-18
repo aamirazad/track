@@ -5,7 +5,6 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Script from "next/script";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
 	title: "TrackShelf",
@@ -30,8 +29,7 @@ export default function RootLayout({
 			<body>
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="system"
-					enableSystem
+					defaultTheme="dark"
 					disableTransitionOnChange
 				>
 					<Script
@@ -39,9 +37,8 @@ export default function RootLayout({
 						data-site-id="5"
 						strategy="afterInteractive"
 					/>
-					<Toaster />
 
-					<div className="relative min-h-screen w-full overflow-hidden bg-[radial-gradient(circle_at_20%_20%,theme(colors.slate.200)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_20%_20%,theme(colors.slate.800)_0%,transparent_60%)]">
+					<div className="relative min-h-screen w-full overflow-hidden">
 						<div
 							className="pointer-events-none absolute inset-0 opacity-60 mix-blend-multiply dark:opacity-40"
 							style={{
@@ -52,14 +49,6 @@ export default function RootLayout({
 						<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)]" />
 
 						<LayoutWrapper>{children}</LayoutWrapper>
-
-						<footer className="mt-auto">
-							<div className="mt-10 flex flex-col items-center gap-2 pb-10 text-[11px] text-slate-500 dark:text-slate-500">
-								<div>
-									© {new Date().getFullYear()} TrackShelf
-								</div>
-							</div>
-						</footer>
 					</div>
 				</ThemeProvider>
 			</body>

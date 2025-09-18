@@ -28,16 +28,6 @@ const items = [
 		url: "/app/movies",
 		icon: Film,
 	},
-	{
-		title: "Search",
-		url: "/app/search",
-		icon: Search,
-	},
-	{
-		title: "Settings",
-		url: "/app/settings",
-		icon: Settings,
-	},
 ];
 
 export function AppSidebar() {
