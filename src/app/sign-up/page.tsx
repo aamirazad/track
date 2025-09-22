@@ -2,7 +2,7 @@
 
 import { AlertCircleIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -19,6 +19,7 @@ import { Label } from "@/components/ui/label";
 import { signUp } from "@/lib/auth-client";
 
 export default function SignUp() {
+	const router = useRouter();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -55,7 +56,7 @@ export default function SignUp() {
 						setError(ctx.error.message);
 					},
 					onSuccess: async () => {
-						redirect("/app");
+						router.push("/app");
 					},
 				},
 			});

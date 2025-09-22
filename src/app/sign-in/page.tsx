@@ -2,7 +2,7 @@
 
 import { AlertCircleIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -23,6 +23,7 @@ export default function SignIn() {
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>();
+	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -35,7 +36,7 @@ export default function SignIn() {
 		if (res.error) {
 			setError(res.error.message);
 		} else {
-			redirect("/app");
+			router.push("/app");
 		}
 		setLoading(false);
 	};
