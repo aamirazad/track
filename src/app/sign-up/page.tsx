@@ -44,7 +44,6 @@ export default function SignUp() {
 				email,
 				password,
 				name: `${firstName} ${lastName}`,
-				callbackURL: "/app",
 				fetchOptions: {
 					onResponse: () => {
 						setLoading(false);
@@ -55,8 +54,8 @@ export default function SignUp() {
 					onError: (ctx) => {
 						setError(ctx.error.message);
 					},
-					onSuccess: async () => {
-						router.push("/app");
+					onSuccess: () => {
+						router.refresh();
 					},
 				},
 			});
