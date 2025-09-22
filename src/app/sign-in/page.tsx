@@ -35,10 +35,13 @@ export default function SignIn() {
 		});
 		if (res.error) {
 			setError(res.error.message);
+			setLoading(false);
 		} else {
-			router.push("/app");
+			setTimeout(() => {
+				router.push("/app");
+				setLoading(false);
+			}, 1000);
 		}
-		setLoading(false);
 	};
 
 	return (
