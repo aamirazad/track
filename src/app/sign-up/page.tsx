@@ -1,9 +1,8 @@
 "use client";
 
-import { AlertCircleIcon, Loader2, X } from "lucide-react";
-import Image from "next/image";
+import { AlertCircleIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import AuthFormWrapper from "@/components/blocks/AuthFormWrapper";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -25,23 +24,8 @@ export default function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordConfirmation, setPasswordConfirmation] = useState("");
-	const [image, setImage] = useState<File | null>(null);
-	const [imagePreview, setImagePreview] = useState<string | null>(null);
-	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-
-	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (file) {
-			setImage(file);
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setImagePreview(reader.result as string);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -59,7 +43,6 @@ export default function SignUp() {
 				email,
 				password,
 				name: `${firstName} ${lastName}`,
-				image: image ? await convertImageToBase64(image) : "",
 				callbackURL: "/app",
 				fetchOptions: {
 					onResponse: () => {
@@ -72,7 +55,7 @@ export default function SignUp() {
 						setError(ctx.error.message);
 					},
 					onSuccess: async () => {
-						router.push("/app");
+						redirect("/app");
 					},
 				},
 			});
@@ -196,13 +179,4 @@ export default function SignUp() {
 			</AuthFormWrapper>
 		</div>
 	);
-}
-
-async function convertImageToBase64(file: File): Promise<string> {
-	return new Promise((resolve, reject) => {
-		const reader = new FileReader();
-		reader.onloadend = () => resolve(reader.result as string);
-		reader.onerror = reject;
-		reader.readAsDataURL(file);
-	});
 }

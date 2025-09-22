@@ -8,6 +8,7 @@ export const auth = betterAuth({
 		provider: "pg",
 		schema,
 	}),
+	baseURL: "https://track.aamira.me",
 	trustedOrigins: [
 		"http://localhost:3000",
 		"https://track.aamira.me",
