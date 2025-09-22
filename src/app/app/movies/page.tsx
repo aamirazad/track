@@ -47,7 +47,7 @@ export default function MoviesPage() {
 					</p>
 				</div>
 				<div className="grid grid-cols-1 gap-4">
-					{[...Array(6)].map((_, i) => (
+					{[...Array(5)].map((_, i) => (
 						<div
 							key={`skeleton-${i}`}
 							className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm"

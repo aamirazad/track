@@ -29,6 +29,7 @@ export function NotesModal({
 }: NotesModalProps) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [notes, setNotes] = useState("");
+	const [savedNotes, setSavedNotes] = useState("");
 	const [isSaving, setIsSaving] = useState(false);
 
 	if (!item) return null;
@@ -38,7 +39,7 @@ export function NotesModal({
 	const movie = !isBook ? (item as Movie) : null;
 
 	const handleEditClick = () => {
-		setNotes(item.notes);
+		setNotes(currentNotes);
 		setIsEditing(true);
 	};
 
@@ -50,6 +51,7 @@ export function NotesModal({
 				: await updateMovieNotes(item.id, notes);
 
 			if (success) {
+				setSavedNotes(notes);
 				setIsEditing(false);
 				onNotesUpdate?.();
 			}
@@ -61,9 +63,12 @@ export function NotesModal({
 	};
 
 	const handleCancel = () => {
-		setNotes(item.notes);
+		setNotes(currentNotes);
 		setIsEditing(false);
 	};
+
+	// Get the current notes to display
+	const currentNotes = savedNotes || item.notes;
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
@@ -213,7 +218,7 @@ export function NotesModal({
 						) : (
 							<div className="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
 								<p className="whitespace-pre-wrap text-sm leading-relaxed">
-									{item.notes ||
+									{currentNotes ||
 										"No notes yet. Click Edit to add your thoughts!"}
 								</p>
 							</div>
