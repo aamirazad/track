@@ -19,11 +19,11 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "@/lib/auth-client";
 
 export default function SignIn() {
-	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>();
+	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -35,10 +35,10 @@ export default function SignIn() {
 		});
 		if (res.error) {
 			setError(res.error.message);
+			setLoading(false);
 		} else {
-			router.push("/app");
+			router.refresh();
 		}
-		setLoading(false);
 	};
 
 	return (
