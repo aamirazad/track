@@ -37,10 +37,7 @@ export default function SignIn() {
 			setError(res.error.message);
 			setLoading(false);
 		} else {
-			setTimeout(() => {
-				router.push("/app");
-				setLoading(false);
-			}, 1000);
+			router.refresh();
 		}
 	};
 
