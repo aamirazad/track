@@ -66,6 +66,16 @@ export const mockBooks: Book[] = [
 		notes: "What a captivating story! Evelyn Hugo is such a complex and fascinating character. The way the author revealed her secrets kept me on the edge of my seat. The LGBTQ+ representation was beautifully done, and the ending absolutely broke my heart.",
 		genres: ["Historical Fiction", "Romance", "LGBTQ+"],
 	},
+	{
+		id: "4",
+		title: "Test Long Notes Book",
+		author: "Test Author",
+		coverUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=450&fit=crop",
+		rating: 3,
+		dateCompleted: "2024-12-01",
+		notes: "This is a test book with extremely long notes that should demonstrate the text wrapping issue where verylongwordsthatdonthavespacesbetweenthemcancausethecontainertohorizontallyscrollorextendpasttheboundariesofthemodalcomponent. Here's a very long URL that might also cause issues: https://www.superlongdomainname.com/with/many/path/segments/that/could/potentially/break/the/layout/of/the/modal/component/when/displayed/in/the/notes/section/especially/if/word/wrapping/is/not/properly/configured/in/the/CSS/classes/applied/to/the/paragraph/element. And here's some normal text that should wrap fine within reasonable boundaries.",
+		genres: ["Test", "Long Notes", "Wrapping"],
+	},
 ];
 
 export const mockMovies: Movie[] = [
