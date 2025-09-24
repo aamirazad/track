@@ -217,7 +217,7 @@ export function NotesModal({
 							</div>
 						) : (
 							<div className="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
-								<p className="whitespace-pre-wrap text-sm leading-relaxed">
+								<p className="whitespace-pre-wrap text-sm leading-relaxed break-words">
 									{currentNotes ||
 										"No notes yet. Click Edit to add your thoughts!"}
 								</p>
