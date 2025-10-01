@@ -1,5 +1,8 @@
 # TrackShelf
 
+<img width="1919" height="938" alt="image" src="https://github.com/user-attachments/assets/4363864b-8cb4-4838-9dae-5290e51a2546" />
+
+
 A nextjs app to manage all the books, movies, and tv shows you watch so that you never forget what about these experiences was special to you.
 
 ## Usage
