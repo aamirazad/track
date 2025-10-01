@@ -1,7 +1,7 @@
 "use client";
 
 import { Calendar, Clock, Edit3, Save, Star, User, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type Book, updateBookNotes } from "@/app/actions/books";
 import { type Movie, updateMovieNotes } from "@/app/actions/movies";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,12 @@ export function NotesModal({
 	const [isSaving, setIsSaving] = useState(false);
 
 	if (!item) return null;
+
+	useEffect(() => {
+		setNotes(item.notes || "");
+		setSavedNotes("");
+		setIsEditing(false);
+	}, [item]);
 
 	const isBook = type === "book";
 	const book = isBook ? (item as Book) : null;
