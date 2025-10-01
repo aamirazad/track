@@ -1,6 +1,6 @@
 "use server";
 
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -169,7 +169,7 @@ export async function updateMovieNotes(
 				updatedAt: new Date(),
 			})
 			.where(
-				eq(movies.id, movieId) && eq(movies.userId, session.user.id),
+				and(eq(movies.id, movieId), eq(movies.userId, session.user.id)),
 			);
 
 		return true;
