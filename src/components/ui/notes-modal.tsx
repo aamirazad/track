@@ -32,13 +32,13 @@ export function NotesModal({
 	const [savedNotes, setSavedNotes] = useState("");
 	const [isSaving, setIsSaving] = useState(false);
 
-	if (!item) return null;
-
 	useEffect(() => {
 		setNotes(item.notes || "");
 		setSavedNotes("");
 		setIsEditing(false);
 	}, [item]);
+
+	if (!item) return null;
 
 	const isBook = type === "book";
 	const book = isBook ? (item as Book) : null;
