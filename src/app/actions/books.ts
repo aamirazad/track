@@ -1,6 +1,6 @@
 "use server";
 
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -159,7 +159,9 @@ export async function updateBookNotes(
 				notes,
 				updatedAt: new Date(),
 			})
-			.where(eq(books.id, bookId) && eq(books.userId, session.user.id));
+			.where(
+				and(eq(books.id, bookId), eq(books.userId, session.user.id)),
+			);
 
 		return true;
 	} catch (error) {

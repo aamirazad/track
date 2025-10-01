@@ -32,11 +32,14 @@ export function NotesModal({
 	const [savedNotes, setSavedNotes] = useState("");
 	const [isSaving, setIsSaving] = useState(false);
 
+	// Reset state when item changes
 	useEffect(() => {
-		setNotes(item.notes || "");
-		setSavedNotes("");
-		setIsEditing(false);
-	}, [item]);
+		if (item) {
+			setNotes("");
+			setSavedNotes("");
+			setIsEditing(false);
+		}
+	}, [item?.id]);
 
 	if (!item) return null;
 
