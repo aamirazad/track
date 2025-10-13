@@ -33,7 +33,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Script
-						src="https://www.aamira.me/api/script.js"
+						src="https://www.aamirazad.com/api/script.js"
 						data-site-id="5"
 						strategy="afterInteractive"
 					/>

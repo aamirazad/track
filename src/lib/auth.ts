@@ -14,7 +14,7 @@ export const auth = betterAuth({
 		"http://localhost:3000",
 	trustedOrigins: [
 		"http://localhost:3000",
-		"https://track.aamira.me",
+		"https://track.aamirazad.com",
 		"https://*-aamira.vercel.app",
 	],
 	emailAndPassword: {
